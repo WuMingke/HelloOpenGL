@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         if (support) {
             gl_view?.setEGLContextClientVersion(2)
 //            gl_view?.setRenderer(MyRender())
-            gl_view?.setRenderer(AirHockeyRenderer())
+            gl_view?.setRenderer(AirHockeyRenderer(this))
             rendererSet = true
         } else {
             rendererSet = false
