@@ -27,11 +27,27 @@ class AirHockeyRenderer(val context: Context) : GLSurfaceView.Renderer {
     init {
         // 数据
         val tableVertices = floatArrayOf(0f, 0f, 0f, 14f, 9f, 14f, 9f, 0f) // 顶点属性
+//        val tableVerticesWithTriangles = floatArrayOf(
+//            0f, 0f, 9f, 14f, 0f, 14f,
+//            0f, 0f, 9f, 0f, 9f, 14f,
+//            0f, 7f, 9f, 7f,
+//            4.5f, 2f, 4.5f, 12f
+//        )
+
+//        val tableVerticesWithTriangles = floatArrayOf(
+//            -0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f,
+//            -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f,
+//            -0.5f, 0f, 0.5f, 0f,
+//            0f, -0.25f, 0f, 0.25f
+//        )
+
         val tableVerticesWithTriangles = floatArrayOf(
-            0f, 0f, 9f, 14f, 0f, 14f,
-            0f, 0f, 9f, 0f, 9f, 14f,
-            0f, 7f, 9f, 7f,
-            4.5f, 2f, 4.5f, 12f
+            0f, 0f,
+            -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f,
+            -0.5f, 0.5f, -0.5f, -0.5f,
+//            0.5f, 0.5f,
+//            -0.5f, 0f, 0.5f, 0f,
+//            0f, -0.25f, 0f, 0.25f
         )
 
         vertexData = ByteBuffer
@@ -46,7 +62,7 @@ class AirHockeyRenderer(val context: Context) : GLSurfaceView.Renderer {
     }
 
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
-        glClearColor(1.0f, 0.0f, 0.0f, 0.0f)
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f)
         val vertexShaderSource = Utils.readTextFileFromResource(context, R.raw.simple_vertex_shader)
         val fragmentShaderSource = Utils.readTextFileFromResource(context, R.raw.simple_fragment_shader)
 
@@ -77,16 +93,18 @@ class AirHockeyRenderer(val context: Context) : GLSurfaceView.Renderer {
     override fun onDrawFrame(gl: GL10?) { // 绘制一帧
 
         glUniform4f(uColorLocation, 1.0f, 1.0f, 1.0f, 1.0f) // 更新着色器的 u_Color 值
-        glDrawArrays(GL_TRIANGLES, 0, 6) // 画三角形
+//        glDrawArrays(GL_TRIANGLES, 0, 6) // 画三角形
+//
+//        glUniform4f(uColorLocation, 1.0f, 0.0f, 0.0f, 1.0f) // 更新着色器的 u_Color 值
+//        glDrawArrays(GL_LINES, 6, 2) // 画直线
+//
+//        glUniform4f(uColorLocation, 0.0f, 0.0f, 1.0f, 1.0f) // 更新着色器的 u_Color 值
+//        glDrawArrays(GL_POINTS, 8, 1) // 画点
+//
+//        glUniform4f(uColorLocation, 1.0f, 0.0f, 1.0f, 1.0f) // 更新着色器的 u_Color 值
+//        glDrawArrays(GL_POINTS, 9, 1) // 画点
 
-        glUniform4f(uColorLocation, 1.0f, 0.0f, 0.0f, 1.0f) // 更新着色器的 u_Color 值
-        glDrawArrays(GL_LINES, 6, 2) // 画直线
-
-        glUniform4f(uColorLocation, 0.0f, 0.0f, 1.0f, 1.0f) // 更新着色器的 u_Color 值
-        glDrawArrays(GL_POINTS, 8, 1) // 画点
-
-        glUniform4f(uColorLocation, 1.0f, 0.0f, 1.0f, 1.0f) // 更新着色器的 u_Color 值
-        glDrawArrays(GL_POINTS, 9, 1) // 画点
+        glDrawArrays(GL_TRIANGLE_FAN, 0, 6)
 
 
     }
